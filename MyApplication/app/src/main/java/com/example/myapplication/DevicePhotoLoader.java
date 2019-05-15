@@ -19,10 +19,10 @@ public class DevicePhotoLoader implements LoaderManager.LoaderCallbacks<Cursor> 
     private static final String DESC_SORT_ORDER = " DESC";
     private static final int LIMIT = 3;
     private final Context mContext;
-    private MainActivity.ThumbnailAdapter mAdapter;
+    private ThumbnailAdapter mAdapter;
 
 
-    public DevicePhotoLoader(Context context, MainActivity.ThumbnailAdapter adapter) {
+    public DevicePhotoLoader(Context context, ThumbnailAdapter adapter) {
         mContext = context;
         mAdapter = adapter;
     }
