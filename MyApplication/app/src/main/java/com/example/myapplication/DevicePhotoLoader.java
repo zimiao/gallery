@@ -13,11 +13,14 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 
+import static com.example.myapplication.LogUtils.log;
+
 public class DevicePhotoLoader implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String DESC_SORT_ORDER = " DESC";
     private static final int LIMIT = 3;
     private final Context mContext;
     private MainActivity.ThumbnailAdapter mAdapter;
+
 
     public DevicePhotoLoader(Context context, MainActivity.ThumbnailAdapter adapter) {
         mContext = context;
@@ -27,6 +30,7 @@ public class DevicePhotoLoader implements LoaderManager.LoaderCallbacks<Cursor> 
     @NonNull
     @Override
     public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
+        log(this.getClass(), "calling onCreateLoader");
         String[] projection = new String[]{
                 Media._ID, ImageColumns.DATE_TAKEN
         };
@@ -45,7 +49,8 @@ public class DevicePhotoLoader implements LoaderManager.LoaderCallbacks<Cursor> 
 
     @Override
     public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
-        if (!cursor.moveToFirst()) {
+        log(this.getClass(), "calling onLoadFinished");
+        if (cursor == null || !cursor.moveToFirst()) {
             return;
         }
         while (!cursor.isAfterLast()) {
@@ -54,15 +59,23 @@ public class DevicePhotoLoader implements LoaderManager.LoaderCallbacks<Cursor> 
             int imageId = cursor.getInt(columnIndex);
             Uri uri =
                     Uri.withAppendedPath(Media.EXTERNAL_CONTENT_URI, Integer.toString(imageId));
-            Log.e("rachel", uri.toString());
+            Log.e("rachel1", uri.toString());
             mAdapter.addUri(uri);
             cursor.moveToNext();
         }
+        // the recyclerview is registered as its observer by calling recyclerview.setAdapter, so it will update its UI.
         mAdapter.notifyDataSetChanged();
+        // don't close cursor yourself because you are using a cursor loader, which will take care of it for you
     }
 
+    // called when a previously created loader is being reset (when you call destroyLoader(int) or when the activity or
+    // fragment is destroyed , and thus making its data unavailable. Your code should remove any references it has to
+    // the loader's data.
     @Override
     public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        log(this.getClass(), "calling onLoaderReset");
+        mAdapter.clearData();
+        mAdapter.notifyDataSetChanged();
     }
 }
 

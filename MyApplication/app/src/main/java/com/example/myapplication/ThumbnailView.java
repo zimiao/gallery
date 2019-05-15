@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import static com.example.myapplication.LogUtils.log;
+
 public class ThumbnailView extends FrameLayout {
     View mThumbnail;
     View mImage;
@@ -57,6 +59,7 @@ public class ThumbnailView extends FrameLayout {
             @Override
             public void onClick(View v) {
                 if (mIsClicked) {
+                    log(this.getClass(), "selecting");
                     // unselected -> selected
                     animateUnClicked.start();
                     mIsClicked = false;
