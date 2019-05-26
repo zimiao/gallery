@@ -1,1 +1,1 @@
-# photopicker
+# The gallery app
