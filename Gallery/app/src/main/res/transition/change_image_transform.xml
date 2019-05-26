@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<transitionSet>
+  <!--This Transition captures an ImageView's matrix before and after the scene change and animates it during the transition.-->
+  <changeImageTransform/>
+  <changeBounds />
+
+</transitionSet>
