@@ -5,11 +5,11 @@
     android:layout_height="match_parent"
     android:gravity="center">
 
-  <!--<ImageView-->
-      <!--android:id="@+id/pager_image"-->
-      <!--android:transitionName="target"-->
-      <!--android:layout_width="500dp"-->
-      <!--android:layout_height="wrap_content"-->
-      <!--android:src="@drawable/air"/>-->
+  <ImageView
+      android:id="@+id/detail_image"
+      android:transitionName="target"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:src="@drawable/air"/>
 
 </LinearLayout>
