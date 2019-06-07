@@ -7,9 +7,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import androidx.recyclerview.selection.SelectionTracker;
 
 import static com.example.myapplication.LogUtils.log;
 
@@ -42,24 +42,19 @@ public class MainActivity extends AppCompatActivity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                log(this.getClass(), "clicking button");
+                Log.e("rachel", "clicking button");
+//                mThumbnailRecyclerView.removeViewAt(0);
+
+                mAdapter.upload(1);
             }
         });
 
         mThumbnailRecyclerView = findViewById(R.id.thumbnail_container);
 
-        mAdapter = new ThumbnailAdapter();
+        mAdapter = new ThumbnailAdapter(this, null);
         mLoader = new DevicePhotoLoader(this, mAdapter);
         mThumbnailRecyclerView.setAdapter(mAdapter);
         getSupportLoaderManager().initLoader(0, null, mLoader);
-//        SelectionTracker tracker = new SelectionTracker.Builder<>(
-//                "my-selection-id",
-//                mThumbnailRecyclerView,
-//                new StableIdKeyProvider(recyclerView),
-//                new MyDetailsLookup(recyclerView),
-//                StorageStrategy.createLongStorage())
-//                .withOnItemActivatedListener(myItemActivatedListener)
-//                .build();
     }
 
     @Override
